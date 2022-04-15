@@ -5,6 +5,10 @@ VisualStudioVersion = 16.0.32106.194
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessViewer.UI", "ChessViewer.UI\ChessViewer.UI.csproj", "{C2FB1F5A-9133-4FF3-A2CD-BDD6EFBE832A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessViewer.Data", "ChessViewer.Data\ChessViewer.Data.csproj", "{A05938DB-67C5-45B0-B059-1F23C5A51079}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessViewer.Domain", "ChessViewer.Domain\ChessViewer.Domain.csproj", "{2697BC7B-3677-4A66-948D-A488BA5FF5DF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{C2FB1F5A-9133-4FF3-A2CD-BDD6EFBE832A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C2FB1F5A-9133-4FF3-A2CD-BDD6EFBE832A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C2FB1F5A-9133-4FF3-A2CD-BDD6EFBE832A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A05938DB-67C5-45B0-B059-1F23C5A51079}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A05938DB-67C5-45B0-B059-1F23C5A51079}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A05938DB-67C5-45B0-B059-1F23C5A51079}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A05938DB-67C5-45B0-B059-1F23C5A51079}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2697BC7B-3677-4A66-948D-A488BA5FF5DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2697BC7B-3677-4A66-948D-A488BA5FF5DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2697BC7B-3677-4A66-948D-A488BA5FF5DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2697BC7B-3677-4A66-948D-A488BA5FF5DF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

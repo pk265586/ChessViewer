@@ -29,13 +29,13 @@ namespace ChessViewer.UI.Controllers
             return View("Index", new HomeViewModel(HomeFormMode.Play));
         }
 
-        public ActionResult Edit(string rawMoves)
+        public ActionResult Edit()
         {
             //TBD
             return View("Index", new HomeViewModel(HomeFormMode.Edit));
         }
 
-        public ActionResult Load(string rawMoves)
+        public ActionResult Load()
         {
             //TBD
             return View("Index", new HomeViewModel(HomeFormMode.Load));
