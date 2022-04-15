@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-using ChessViewer.Static;
+using ChessViewer.UI.Static;
 
-namespace ChessViewer.Models
+namespace ChessViewer.UI.Models
 {
     public class HomeViewModel
     {

@@ -4,10 +4,10 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-using ChessViewer.Models;
-using ChessViewer.Static;
+using ChessViewer.UI.Models;
+using ChessViewer.UI.Static;
 
-namespace ChessViewer.Controllers
+namespace ChessViewer.UI.Controllers
 {
     public class HomeController : Controller
     {
