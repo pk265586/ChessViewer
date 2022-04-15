@@ -3,7 +3,7 @@
 
 <ul>
     <li>
-        @Html.ActionLink("Play", "Play", new { rawMoves = Model.EditModel.RawMoves })
+        @Html.ActionLink("Play", "Play", new { rawMoves = Model.CurrentGame.RawMoves })
     </li>
     <li>
         @Html.ActionLink("Edit", "Edit") 
@@ -11,5 +11,4 @@
     <li>
         @Html.ActionLink("Load", "Load")
     </li>
-    @*<li> Save </li>*@
 </ul>

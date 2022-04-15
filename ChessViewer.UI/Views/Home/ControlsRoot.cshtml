@@ -5,14 +5,14 @@
 @if (Model.FormMode == HomeFormMode.Play)
 {
     <div id="PlayControls">
-        @Html.Partial("PlayControls", Model.EditModel)
+        @Html.Partial("PlayControls", Model.CurrentGame)
     </div>
 }
 
 @if (Model.FormMode == HomeFormMode.Edit)
 {
     <div id="EditControls">
-        @Html.Partial("EditGame", Model.EditModel)
+        @Html.Partial("EditGame", Model.CurrentGame)
     </div>
 }
 

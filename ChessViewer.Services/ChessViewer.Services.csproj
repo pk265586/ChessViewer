@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{2697BC7B-3677-4A66-948D-A488BA5FF5DF}</ProjectGuid>
+    <ProjectGuid>{6C8EE895-C770-4D50-B4F3-5D5C652F08F8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ChessViewer.Domain</RootNamespace>
-    <AssemblyName>ChessViewer.Domain</AssemblyName>
+    <RootNamespace>ChessViewer.Services</RootNamespace>
+    <AssemblyName>ChessViewer.Services</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -32,6 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -41,10 +42,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GameModel.cs" />
-    <Compile Include="GameMoveModel.cs" />
+    <Compile Include="GameService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utils.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ChessViewer.Data\ChessViewer.Data.csproj">
+      <Project>{a05938db-67c5-45b0-b059-1f23c5a51079}</Project>
+      <Name>ChessViewer.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ChessViewer.Domain\ChessViewer.Domain.csproj">
+      <Project>{2697bc7b-3677-4a66-948d-a488ba5ff5df}</Project>
+      <Name>ChessViewer.Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

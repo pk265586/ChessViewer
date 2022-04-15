@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessViewer.Data", "ChessVi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessViewer.Domain", "ChessViewer.Domain\ChessViewer.Domain.csproj", "{2697BC7B-3677-4A66-948D-A488BA5FF5DF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessViewer.Services", "ChessViewer.Services\ChessViewer.Services.csproj", "{6C8EE895-C770-4D50-B4F3-5D5C652F08F8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{2697BC7B-3677-4A66-948D-A488BA5FF5DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2697BC7B-3677-4A66-948D-A488BA5FF5DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2697BC7B-3677-4A66-948D-A488BA5FF5DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C8EE895-C770-4D50-B4F3-5D5C652F08F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C8EE895-C770-4D50-B4F3-5D5C652F08F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C8EE895-C770-4D50-B4F3-5D5C652F08F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C8EE895-C770-4D50-B4F3-5D5C652F08F8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

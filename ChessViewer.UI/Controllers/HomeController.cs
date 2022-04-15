@@ -17,7 +17,7 @@ namespace ChessViewer.UI.Controllers
         }
 
         [HttpPost]
-        public ActionResult Save()
+        public ActionResult Save(GameViewModel saveModel)
         {
             //TBD
             return View("Index", new HomeViewModel());

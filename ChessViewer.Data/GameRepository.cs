@@ -22,7 +22,8 @@ namespace ChessViewer.Data
         }
 
         private const string INSERT_TEXT = "Insert Into Games (Name) Values (@Name)";
-        private const string SELECT_TEXT = "Select * From Games Order by Name";
+        private const string SELECT_ALL_TEXT = "Select * From Games Order by Name";
+        private const string SELECT_BY_NAME = "Select * From Games Where Name = @Name";
 
         public void InsertGame(GameModel model) 
         {
@@ -33,7 +34,12 @@ namespace ChessViewer.Data
 
         public List<GameModel> GetAllGames() 
         { 
-            return sqlHelper.GetEntityList(SELECT_TEXT, GetGameByReader);
+            return sqlHelper.GetEntityList(SELECT_ALL_TEXT, GetGameByReader);
+        }
+
+        public GameModel GetGameByName(string gameName) 
+        {
+            return sqlHelper.GetEntity(SELECT_BY_NAME, new SQLiteParameter("@Name", gameName), GetGameByReader);
         }
 
         private GameModel GetGameByReader(IDataReader reader)
