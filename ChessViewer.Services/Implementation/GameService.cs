@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 
 using ChessViewer.Domain;
 using ChessViewer.Data;
+using ChessViewer.Services.Abstract;
 
-namespace ChessViewer.Services
+namespace ChessViewer.Services.Implementation
 {
-    public class GameService
+    public class GameService : IGameService
     {
         private GameRepository GetGameRepository() =>
             new GameRepository(ConfigurationManager.ConnectionStrings["GameDb"].ConnectionString);
@@ -73,6 +74,16 @@ namespace ChessViewer.Services
             };
 
             return model;
+        }
+
+        public GameModel GetGameByName(string gameName) 
+        {
+            return GetGameRepository().GetGameByName(gameName);
+        }
+
+        public List<GameModel> GetAllGames() 
+        {
+            return GetGameRepository().GetAllGames();
         }
     }
 }

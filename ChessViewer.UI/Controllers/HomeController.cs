@@ -6,20 +6,31 @@ using System.Web.Mvc;
 
 using ChessViewer.UI.Models;
 using ChessViewer.UI.Static;
+using ChessViewer.Services.Abstract;
 
 namespace ChessViewer.UI.Controllers
 {
     public class HomeController : Controller
     {
+        IGameService gameService;
+
+        public HomeController(IGameService gameService)
+        {
+            this.gameService = gameService;
+        }
+
         public ActionResult Index()
         {
-            return View(new HomeViewModel(HomeFormMode.Load));
+            var model = new HomeViewModel(HomeFormMode.Load);
+            model.LoadModel.GameNames = gameService.GetAllGames().Select(g => g.Name).ToList();
+
+            return View(model);
         }
 
         [HttpPost]
         public ActionResult Save(GameViewModel saveModel)
         {
-            //TBD
+            gameService.SaveGame(saveModel.GameName, saveModel.RawMoves);
             return View("Index", new HomeViewModel());
         }
 
