@@ -1,0 +1,15 @@
+﻿@using ChessViewer.Models
+@model HomeViewModel
+
+<ul>
+    <li>
+        @Html.ActionLink("Play", "Play", new { rawMoves = Model.EditModel.RawMoves })
+    </li>
+    <li>
+        @Html.ActionLink("Edit", "Edit", new { rawMoves = Model.EditModel.RawMoves }) 
+    </li>
+    <li>
+        @Html.ActionLink("Load", "Load", new { rawMoves = Model.EditModel.RawMoves })
+    </li>
+    @*<li> Save </li>*@
+</ul>

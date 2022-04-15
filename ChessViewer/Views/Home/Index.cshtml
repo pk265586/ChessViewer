@@ -1,0 +1,22 @@
+﻿@using ChessViewer.Models
+@model HomeViewModel
+
+@{
+    ViewBag.Title = "Chess viewer";
+}
+
+@section Scripts {
+
+}
+
+@section Body {
+    <div id="summary" class="col-sm-1">
+        @Html.Partial("Menu", Model)
+    </div>
+    <div id="summary" class="col-sm-2">
+        @Html.Partial("ControlsRoot", Model)
+    </div>
+    <div id="editor" class="col-sm-9">
+        @Html.Partial("GameLayout")
+    </div>
+}

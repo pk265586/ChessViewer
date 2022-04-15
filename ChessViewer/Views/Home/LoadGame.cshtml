@@ -1,0 +1,4 @@
+﻿@using ChessViewer.Models
+@model LoadGameModel
+
+@Html.ListBoxFor(m => m.SelectGameName, Model.GameNames.Select(x=>new SelectListItem { Text = x }))

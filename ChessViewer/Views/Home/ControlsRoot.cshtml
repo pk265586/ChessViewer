@@ -1,0 +1,24 @@
+﻿@using ChessViewer.Models
+@using ChessViewer.Static
+@model HomeViewModel
+
+@if (Model.FormMode == HomeFormMode.Play)
+{
+    <div id="PlayControls">
+        @Html.Partial("PlayControls", Model.EditModel)
+    </div>
+}
+
+@if (Model.FormMode == HomeFormMode.Edit)
+{
+    <div id="EditControls">
+        @Html.Partial("EditGame", Model.EditModel)
+    </div>
+}
+
+@if (Model.FormMode == HomeFormMode.Load)
+{
+    <div id="LoadControls">
+        @Html.Partial("LoadGame", Model.LoadModel)
+    </div>
+}
