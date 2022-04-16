@@ -30,6 +30,11 @@ namespace ChessViewer.UI.Controllers
         [HttpPost]
         public ActionResult Save(GameViewModel saveModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return View("Index", new HomeViewModel(HomeFormMode.Edit) { CurrentGame = saveModel });
+            }
+
             gameService.SaveGame(saveModel.GameName, saveModel.RawMoves);
             return View("Index", new HomeViewModel());
         }

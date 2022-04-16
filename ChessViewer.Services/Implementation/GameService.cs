@@ -39,6 +39,7 @@ namespace ChessViewer.Services.Implementation
             else
                 movesRepository.DeleteGameMoves(game.Id);
 
+            moves.ForEach(m => m.GameId = game.Id);
             movesRepository.SaveGameMoves(moves);
         }
 
@@ -60,13 +61,22 @@ namespace ChessViewer.Services.Implementation
         {
             if (line.IsNullOrEmpty())
                 return null;
-            var parts = line.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-            if (parts.Length == 0 || parts.Length > 2)
+
+            var rootParts = line.Split(new[] { '.' }, StringSplitOptions.RemoveEmptyEntries);
+            if (rootParts.Length != 2)
                 return null;
 
-            var cellArray = parts.Select(p => p.Remove(0, 1).Split('-')).ToArray();
+            if (!int.TryParse(rootParts[0], out int moveNumber))
+                return null;
+
+            var whiteBlackParts = rootParts[1].Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            if (whiteBlackParts.Length == 0 || whiteBlackParts.Length > 2)
+                return null;
+
+            var cellArray = whiteBlackParts.Select(p => p.Split('-')).ToArray();
             var model = new GameMoveModel 
             {
+                MoveNumber = moveNumber,
                 WhiteFrom = cellArray[0][0],
                 WhiteTo = cellArray[0][1],
                 BlackFrom = cellArray.LastOrDefault()?.FirstOrDefault(),
