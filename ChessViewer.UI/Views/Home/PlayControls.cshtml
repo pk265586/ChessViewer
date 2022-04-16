@@ -1,5 +1,5 @@
 ﻿@using ChessViewer.UI.Models
-@model SelectGameModel
+@model PlayGameModel
 
 <input id="btn-play" type="button" class="btn btn-xs btn-outline-secondary" value="Play" />
 <br />
@@ -12,4 +12,4 @@
 <br />
 <br />
 
-@Html.ActionLink("Return to game selection", "Select", new { selectedName = Model.SelectGameName }, new { @class = "btn btn-link" })
+@Html.ActionLink("Return to game selection", "Select", new { selectedName = Model.GameName }, new { @class = "btn btn-link" })

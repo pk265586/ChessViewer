@@ -1,1 +1,17 @@
-﻿
+﻿@using ChessViewer.UI.Static
+
+@{
+    const int cellSize = 50;
+}
+
+<table width="auto">
+    @for (int y = 8; y >= 1; y--)
+    {
+        <tr>
+        @for (int x = 1; x <= 8; x++)
+        {
+            <td width="@cellSize" height="@cellSize" style="background-color: @ChessRender.GetSquareColor(x,y)">  </td>
+        }
+        </tr>
+    }
+</table>

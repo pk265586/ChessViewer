@@ -30,15 +30,22 @@ namespace ChessViewer.UI.Controllers
             if (game == null)
                 return Select();
 
-            //TDB gameService.
-            return PlayRaw(game.Name);
+            var model = new HomeViewModel(HomeFormMode.Play);
+            model.PlayGame = new PlayGameModel
+            {
+                GameName = gameName,
+                Moves = game.Moves
+            };
+
+            return View("Index", model);
         }
 
-        public ActionResult PlayRaw(string rawMoves)
+        /*public ActionResult PlayRaw(string rawMoves)
         {
-            //TBD
-            return View("Index", new HomeViewModel(HomeFormMode.Play));
-        }
+            var model = new HomeViewModel(HomeFormMode.Play);
+            model.EditGame.RawMoves = rawMoves;
+            return View("Index", model);
+        }*/
 
         public ActionResult Edit(string gameName = null)
         {

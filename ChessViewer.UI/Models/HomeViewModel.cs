@@ -23,5 +23,7 @@ namespace ChessViewer.UI.Models
         public GameViewModel EditGame { get; set; } = new GameViewModel();
 
         public SelectGameModel SelectGame { get; set; } = new SelectGameModel();
+
+        public PlayGameModel PlayGame { get; set; } = new PlayGameModel();
     }
 }
