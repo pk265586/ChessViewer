@@ -1,18 +1,30 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Data;
+using System.Data.Common;
 using System.Linq;
 
 namespace ChessViewer.Data
 {
-    class SqlHelper
+    public class SQLiteHelper
     {
         private readonly string connectionString;
         
-        public SqlHelper(string connectionString)
+        public SQLiteHelper(string connectionString)
         {
             this.connectionString = connectionString;
+        }
+
+        public void InitDatabase(string initScript) 
+        {
+            var builder = new SQLiteConnectionStringBuilder(connectionString);
+            if (!File.Exists(builder.DataSource))
+            {
+                SQLiteConnection.CreateFile(builder.DataSource);
+                ExecSql(initScript);
+            }
         }
 
         public T GetEntity<T>(string sqlText, Func<IDataReader, T> mapper)
@@ -46,6 +58,7 @@ namespace ChessViewer.Data
             using (var connection = new SQLiteConnection(connectionString))
             using (var cmd = new SQLiteCommand(sqlText, connection))
             {
+                connection.Open();
                 InitCommand(cmd, parameters);
                 var reader = cmd.ExecuteReader();
                 var result = new List<T>();
@@ -62,6 +75,7 @@ namespace ChessViewer.Data
             using (var connection = new SQLiteConnection(connectionString))
             using (var statement = new SQLiteCommand(sqlText, connection))
             {
+                connection.Open();
                 InitCommand(statement, parameters);
                 var reader = statement.ExecuteReader();
                 return reader.Read();
@@ -83,6 +97,7 @@ namespace ChessViewer.Data
             using (var connection = new SQLiteConnection(connectionString))
             using (var cmd = new SQLiteCommand(sqlText, connection))
             {
+                connection.Open();
                 InitCommand(cmd, parameters);
                 cmd.ExecuteNonQuery();
             }
@@ -96,6 +111,7 @@ namespace ChessViewer.Data
             {
                 try
                 {
+                    connection.Open();
                     InitCommand(cmd, parameters);
                     cmd.ExecuteNonQuery();
                     int newId = (int)connection.LastInsertRowId;

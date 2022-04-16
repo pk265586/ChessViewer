@@ -45,6 +45,7 @@
     <Compile Include="Abstract\IGameService.cs" />
     <Compile Include="Implementation\GameService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Static\AppSettings.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ChessViewer.Data\ChessViewer.Data.csproj">

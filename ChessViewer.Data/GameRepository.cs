@@ -14,7 +14,7 @@ namespace ChessViewer.Data
     {
         private readonly string connectionString;
         
-        private SqlHelper sqlHelper => new SqlHelper(connectionString); 
+        private SQLiteHelper sqlHelper => new SQLiteHelper(connectionString); 
 
         public GameRepository(string connectionString)
         {

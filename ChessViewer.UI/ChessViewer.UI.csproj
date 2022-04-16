@@ -117,6 +117,7 @@
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Global.asax" />
+    <Content Include="App_Data\DataInitScript.sql" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
@@ -156,6 +157,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\AppConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -189,10 +191,12 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
-  <ItemGroup>
+    <ProjectReference Include="..\ChessViewer.Data\ChessViewer.Data.csproj">
+      <Project>{a05938db-67c5-45b0-b059-1f23c5a51079}</Project>
+      <Name>ChessViewer.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ChessViewer.Domain\ChessViewer.Domain.csproj">
       <Project>{2697bc7b-3677-4a66-948d-a488ba5ff5df}</Project>
       <Name>ChessViewer.Domain</Name>

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Configuration;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,16 +7,17 @@ using System.Threading.Tasks;
 using ChessViewer.Domain;
 using ChessViewer.Data;
 using ChessViewer.Services.Abstract;
+using ChessViewer.Services.Static;
 
 namespace ChessViewer.Services.Implementation
 {
     public class GameService : IGameService
     {
         private GameRepository GetGameRepository() =>
-            new GameRepository(ConfigurationManager.ConnectionStrings["GameDb"].ConnectionString);
+            new GameRepository(AppSettings.ConnectionString);
 
         private GameMovesRepository GetGameMovesRepository() =>
-            new GameMovesRepository(ConfigurationManager.ConnectionStrings["GameDb"].ConnectionString);
+            new GameMovesRepository(AppSettings.ConnectionString);
 
         public void SaveGame(string gameName, string rawMoves) 
         {

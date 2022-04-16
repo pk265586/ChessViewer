@@ -13,7 +13,7 @@ namespace ChessViewer.Data
     {
         private readonly string connectionString;
 
-        private SqlHelper sqlHelper => new SqlHelper(connectionString);
+        private SQLiteHelper sqlHelper => new SQLiteHelper(connectionString);
 
         private static string INSERT_TEXT =
             "Insert Into GameMoves (GameId, MoveNumber, WhiteFrom, WhiteTo, BlackFrom, BlackTo) " +

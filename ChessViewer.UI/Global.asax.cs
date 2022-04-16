@@ -14,6 +14,7 @@ namespace ChessViewer.UI
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             UnityConfig.RegisterComponents();
+            AppConfig.InitDatabase();
         }
     }
 }
