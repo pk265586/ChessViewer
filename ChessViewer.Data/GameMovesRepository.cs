@@ -20,7 +20,7 @@ namespace ChessViewer.Data
             "Insert Into GameMoves (GameId, MoveNumber, WhiteFrom, WhiteTo, BlackFrom, BlackTo) " +
             "Values (@GameId, @MoveNumber, @WhiteFrom, @WhiteTo, @BlackFrom, @BlackTo)";
 
-        private const string DELETE_BY_GAME_TEXT = "Delete GameMoves Where GameId = @GameId";
+        private const string DELETE_BY_GAME_TEXT = "Delete From GameMoves Where GameId = @GameId";
 
         private const string SELECT_BY_GAME_TEXT = "Select * From GameMoves Where GameId = @GameId";
 

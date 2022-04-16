@@ -24,18 +24,6 @@ namespace ChessViewer.UI.Controllers
             return Select();
         }
 
-        [HttpPost]
-        public ActionResult Save(GameViewModel saveModel)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View("Index", new HomeViewModel(HomeFormMode.Edit) { EditGame = saveModel });
-            }
-
-            gameService.SaveGame(saveModel.GameName, saveModel.RawMoves);
-            return View("Index", new HomeViewModel());
-        }
-
         public ActionResult PlaySelected(string gameName)
         {
             var game = gameService.GetGameByName(gameName, loadMoves: true);
@@ -47,12 +35,6 @@ namespace ChessViewer.UI.Controllers
         }
 
         public ActionResult PlayRaw(string rawMoves)
-        {
-            //TBD
-            return View("Index", new HomeViewModel(HomeFormMode.Play));
-        }
-
-        public ActionResult Play(string rawMoves) 
         {
             //TBD
             return View("Index", new HomeViewModel(HomeFormMode.Play));
@@ -73,12 +55,32 @@ namespace ChessViewer.UI.Controllers
             return View("Index", model);
         }
 
-        public ActionResult Select()
+        [HttpPost]
+        public ActionResult Save(GameViewModel saveModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("Index", new HomeViewModel(HomeFormMode.Edit) { EditGame = saveModel });
+            }
+
+            gameService.SaveGame(saveModel.GameName, saveModel.RawMoves);
+            return Select();
+        }
+
+        public ActionResult Select(string selectedName = null)
         {
             var model = new HomeViewModel(HomeFormMode.Select);
+            model.SelectGame.SelectGameName = selectedName;
             model.SelectGame.GameNames = gameService.GetAllGames().Select(g => g.Name).ToList();
 
             return View("Index", model);
+        }
+
+        [HttpPost]
+        public ActionResult Select(SelectGameModel game)
+        {
+            bool isPlay = Request.Form["Play"] != null;
+            return isPlay ? PlaySelected(game.SelectGameName) : Edit(game.SelectGameName);
         }
     }
 }

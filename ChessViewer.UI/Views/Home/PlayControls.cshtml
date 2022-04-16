@@ -8,3 +8,8 @@
 <input id="btn-step-forward" type="button" class="btn btn-xs btn-outline-secondary" value="Step forward" />
 <br />
 <input id="btn-step-backward" type="button" class="btn btn-xs btn-outline-secondary" value="Step backward" />
+
+<br />
+<br />
+
+@Html.ActionLink("Return to game selection", "Select", new { selectedName = Model.SelectGameName }, new { @class = "btn btn-link" })

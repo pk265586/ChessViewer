@@ -1,4 +1,19 @@
 ﻿@using ChessViewer.UI.Models
 @model SelectGameModel
 
-@Html.ListBoxFor(m => m.SelectGameName, Model.GameNames.Select(x=>new SelectListItem { Text = x }))
+<div class="panel panel-default panel-body" style="max-width: 500px">
+    @Html.ValidationSummary()
+    @using (Html.BeginForm("Select", "Home"))
+    {
+        <div class="form-group">
+            <label>Select game</label>
+            @Html.DropDownListFor(m => m.SelectGameName, Model.GameNames.Select(x => new SelectListItem { Text = x }), new { style = "display: block; width: 100 %; min-width: 200px "}) @*, new { @class = "form-control" }*@
+        </div>
+
+        <br />
+
+        <button type="submit" name="Play" value="Play" class="btn btn-primary"> Play </button>
+        <button type="submit" name="Edit" value="Edit" class="btn btn-primary"> Edit </button>
+    }
+
+</div>
