@@ -26,7 +26,7 @@ namespace ChessViewer.Data
             this.connectionString = connectionString;
         }
 
-        public void DeleteGameMoves(int gameId) 
+        public void DeleteGameMoves(long gameId) 
         {
             sqlHelper.ExecSql(DELETE_BY_GAME_TEXT, new SQLiteParameter("@GameId", gameId));
         }

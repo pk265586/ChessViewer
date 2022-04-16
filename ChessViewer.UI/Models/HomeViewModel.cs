@@ -20,8 +20,8 @@ namespace ChessViewer.UI.Models
 
         public HomeFormMode FormMode { get; set; }
 
-        public GameViewModel CurrentGame { get; set; } = new GameViewModel();
+        public GameViewModel EditGame { get; set; } = new GameViewModel();
 
-        public LoadGameModel LoadModel { get; set; } = new LoadGameModel();
+        public SelectGameModel SelectGame { get; set; } = new SelectGameModel();
     }
 }

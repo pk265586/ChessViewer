@@ -28,7 +28,7 @@ namespace ChessViewer.Data
         public void InsertGame(GameModel model) 
         {
             string sqlText = INSERT_TEXT;
-            int newId = sqlHelper.ExecInsert(sqlText, new[] { new SQLiteParameter("@Name", model.Name) });
+            long newId = sqlHelper.ExecInsert(sqlText, new[] { new SQLiteParameter("@Name", model.Name) });
             model.Id = newId;
         }
 
@@ -46,7 +46,7 @@ namespace ChessViewer.Data
         {
             return new GameModel 
             {
-                Id = (int)reader["Id"],
+                Id = (long)reader["Id"],
                 Name = (string)reader["Name"],
             };
         }

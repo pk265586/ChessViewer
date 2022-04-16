@@ -5,7 +5,7 @@ using System.Web;
 
 namespace ChessViewer.UI.Models
 {
-    public class LoadGameModel
+    public class SelectGameModel
     {
         public string SelectGameName { get; set; }
         public List<string> GameNames { get; set; } = new List<string>();

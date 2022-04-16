@@ -1,14 +1,23 @@
 ﻿@using ChessViewer.UI.Models
+@using ChessViewer.UI.Static
+
 @model HomeViewModel
 
 <ul>
     <li>
-        @Html.ActionLink("Play", "Play", new { rawMoves = Model.CurrentGame.RawMoves })
+        @if (Model.FormMode == HomeFormMode.Edit)
+        {
+            Html.ActionLink("Play", "PlayRaw", new { rawMoves = Model.EditGame.RawMoves });
+        }
+        else
+        {
+            Html.ActionLink("Play", "PlaySelected", new { gameName = Model.SelectGame.SelectGameName });
+        }
     </li>
     <li>
         @Html.ActionLink("Edit", "Edit") 
     </li>
     <li>
-        @Html.ActionLink("Load", "Load")
+        @Html.ActionLink("Select", "Select")
     </li>
 </ul>

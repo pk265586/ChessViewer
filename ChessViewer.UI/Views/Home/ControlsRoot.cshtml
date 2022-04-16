@@ -16,9 +16,9 @@
     </div>
 }
 
-@if (Model.FormMode == HomeFormMode.Load)
+@if (Model.FormMode == HomeFormMode.Select)
 {
     <div id="LoadControls">
-        @Html.Partial("LoadGame", Model.LoadModel)
+        @Html.Partial("SelectGame", Model.LoadModel)
     </div>
 }

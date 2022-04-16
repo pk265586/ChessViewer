@@ -5,5 +5,5 @@ using System.Web;
 
 namespace ChessViewer.UI.Static
 {
-    public enum HomeFormMode { Play, Edit, Load }
+    public enum HomeFormMode { Play, Edit, Select }
 }

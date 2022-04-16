@@ -169,7 +169,7 @@
     <Compile Include="Models\GameMoveViewModel.cs" />
     <Compile Include="Models\GameViewModel.cs" />
     <Compile Include="Models\HomeViewModel.cs" />
-    <Compile Include="Models\LoadGameModel.cs" />
+    <Compile Include="Models\SelectGameModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Static\Enums.cs" />
   </ItemGroup>
@@ -181,7 +181,7 @@
     <Content Include="Views\Home\Menu.cshtml" />
     <Content Include="Views\Home\ControlsRoot.cshtml" />
     <Content Include="Views\Home\EditGame.cshtml" />
-    <Content Include="Views\Home\LoadGame.cshtml" />
+    <Content Include="Views\Home\SelectGame.cshtml" />
     <Content Include="Views\Home\GameLayout.cshtml" />
     <Content Include="Views\Home\PlayControls.cshtml" />
     <None Include="Web.Debug.config">

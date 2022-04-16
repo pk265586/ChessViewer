@@ -21,10 +21,7 @@ namespace ChessViewer.UI.Controllers
 
         public ActionResult Index()
         {
-            var model = new HomeViewModel(HomeFormMode.Load);
-            model.LoadModel.GameNames = gameService.GetAllGames().Select(g => g.Name).ToList();
-
-            return View(model);
+            return Select();
         }
 
         [HttpPost]
@@ -32,11 +29,27 @@ namespace ChessViewer.UI.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View("Index", new HomeViewModel(HomeFormMode.Edit) { CurrentGame = saveModel });
+                return View("Index", new HomeViewModel(HomeFormMode.Edit) { EditGame = saveModel });
             }
 
             gameService.SaveGame(saveModel.GameName, saveModel.RawMoves);
             return View("Index", new HomeViewModel());
+        }
+
+        public ActionResult PlaySelected(string gameName)
+        {
+            var game = gameService.GetGameByName(gameName);
+            if (game == null)
+                return Select();
+
+            //TDB gameService.
+            return PlayRaw(game.Name);
+        }
+
+        public ActionResult PlayRaw(string rawMoves)
+        {
+            //TBD
+            return View("Index", new HomeViewModel(HomeFormMode.Play));
         }
 
         public ActionResult Play(string rawMoves) 
@@ -51,10 +64,12 @@ namespace ChessViewer.UI.Controllers
             return View("Index", new HomeViewModel(HomeFormMode.Edit));
         }
 
-        public ActionResult Load()
+        public ActionResult Select()
         {
-            //TBD
-            return View("Index", new HomeViewModel(HomeFormMode.Load));
+            var model = new HomeViewModel(HomeFormMode.Select);
+            model.SelectGame.GameNames = gameService.GetAllGames().Select(g => g.Name).ToList();
+
+            return View("Index", model);
         }
     }
 }

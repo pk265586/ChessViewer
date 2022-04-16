@@ -93,7 +93,7 @@ namespace ChessViewer.Data
             }
         }
 
-        public int ExecInsert(string sqlText, SQLiteParameter[] parameters)
+        public long ExecInsert(string sqlText, SQLiteParameter[] parameters)
         {
             using (var connection = new SQLiteConnection(connectionString))
             {
@@ -105,7 +105,7 @@ namespace ChessViewer.Data
                     {
                         InitCommand(cmd, parameters);
                         cmd.ExecuteNonQuery();
-                        int newId = (int)connection.LastInsertRowId;
+                        long newId = connection.LastInsertRowId;
                         transaction.Commit();
                         return newId;
                     }
