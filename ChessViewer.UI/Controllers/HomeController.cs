@@ -38,7 +38,7 @@ namespace ChessViewer.UI.Controllers
 
         public ActionResult PlaySelected(string gameName)
         {
-            var game = gameService.GetGameByName(gameName);
+            var game = gameService.GetGameByName(gameName, loadMoves: true);
             if (game == null)
                 return Select();
 
@@ -58,10 +58,19 @@ namespace ChessViewer.UI.Controllers
             return View("Index", new HomeViewModel(HomeFormMode.Play));
         }
 
-        public ActionResult Edit()
+        public ActionResult Edit(string gameName = null)
         {
-            //TBD
-            return View("Index", new HomeViewModel(HomeFormMode.Edit));
+            var model = new HomeViewModel(HomeFormMode.Edit);
+            if (gameName != null) 
+            {
+                var game = gameService.GetGameByName(gameName, loadMoves: true);
+                if (game != null)
+                {
+                    model.EditGame = new GameModelMapper().ToViewModel(game);
+                }
+            }
+
+            return View("Index", model);
         }
 
         public ActionResult Select()

@@ -14,6 +14,6 @@ namespace ChessViewer.UI.Models
         [Required]
         public string GameName { get; set; }
 
-        public List<GameMoveViewModel> Moves { get; set; }
+        //public List<GameMoveViewModel> Moves { get; set; }
     }
 }

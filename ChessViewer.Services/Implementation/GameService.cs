@@ -16,31 +16,24 @@ namespace ChessViewer.Services.Implementation
         private GameRepository GetGameRepository() =>
             new GameRepository(AppSettings.ConnectionString);
 
-        private GameMovesRepository GetGameMovesRepository() =>
-            new GameMovesRepository(AppSettings.ConnectionString);
+        /*private GameMovesRepository GetGameMovesRepository() =>
+            new GameMovesRepository(AppSettings.ConnectionString);*/
 
         public void SaveGame(string gameName, string rawMoves) 
         {
             var moves = ConvertToMovesList(rawMoves);
-            SaveGame(gameName, moves);
+            var game = new GameModel 
+            {
+                Name = gameName,
+                Moves = moves
+            };
+            SaveGame(game);
         }
 
-        public void SaveGame(string gameName, List<GameMoveModel> moves) 
+        public void SaveGame(GameModel game) 
         {
             var repository = GetGameRepository();
-            var movesRepository = GetGameMovesRepository();
-
-            var game = repository.GetGameByName(gameName);
-            if (game == null)
-            {
-                game = new GameModel { Name = gameName };
-                repository.InsertGame(game);
-            }
-            else
-                movesRepository.DeleteGameMoves(game.Id);
-
-            moves.ForEach(m => m.GameId = game.Id);
-            movesRepository.SaveGameMoves(moves);
+            repository.SaveGame(game);
         }
 
         public List<GameMoveModel> ConvertToMovesList(string rawMoves) 
@@ -86,9 +79,9 @@ namespace ChessViewer.Services.Implementation
             return model;
         }
 
-        public GameModel GetGameByName(string gameName) 
+        public GameModel GetGameByName(string gameName, bool loadMoves) 
         {
-            return GetGameRepository().GetGameByName(gameName);
+            return GetGameRepository().GetGameByName(gameName, loadMoves);
         }
 
         public List<GameModel> GetAllGames() 

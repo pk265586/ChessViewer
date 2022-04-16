@@ -25,7 +25,25 @@ namespace ChessViewer.Data
         private const string SELECT_ALL_TEXT = "Select * From Games Order by Name";
         private const string SELECT_BY_NAME = "Select * From Games Where Name = @Name";
 
-        public void InsertGame(GameModel model) 
+        public void SaveGame(GameModel model) 
+        {
+            var existingGame = GetGameByName(model.Name, loadMoves: false);
+            var gameMovesRepository = new GameMovesRepository(connectionString);
+
+            if (existingGame == null)
+            {
+                InsertGame(model);
+            }
+            else
+            {
+                model.Id = existingGame.Id;
+                gameMovesRepository.DeleteGameMoves(existingGame.Id);
+            }
+
+            gameMovesRepository.SaveGameMoves(model.Id, model.Moves);
+        }
+
+        private void InsertGame(GameModel model) 
         {
             string sqlText = INSERT_TEXT;
             long newId = sqlHelper.ExecInsert(sqlText, new[] { new SQLiteParameter("@Name", model.Name) });
@@ -37,9 +55,15 @@ namespace ChessViewer.Data
             return sqlHelper.GetEntityList(SELECT_ALL_TEXT, GetGameByReader);
         }
 
-        public GameModel GetGameByName(string gameName) 
+        public GameModel GetGameByName(string gameName, bool loadMoves) 
         {
-            return sqlHelper.GetEntity(SELECT_BY_NAME, new SQLiteParameter("@Name", gameName), GetGameByReader);
+            var game = sqlHelper.GetEntity(SELECT_BY_NAME, new SQLiteParameter("@Name", gameName), GetGameByReader);
+            if (game != null && loadMoves)
+            {
+                game.Moves = new GameMovesRepository(connectionString).GetGameMoves(game.Id);
+            }
+
+            return game;
         }
 
         private GameModel GetGameByReader(IDataReader reader)

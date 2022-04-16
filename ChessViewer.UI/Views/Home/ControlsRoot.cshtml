@@ -5,20 +5,20 @@
 @if (Model.FormMode == HomeFormMode.Play)
 {
     <div id="PlayControls">
-        @Html.Partial("PlayControls", Model.CurrentGame)
+        @Html.Partial("PlayControls", Model.SelectGame)
     </div>
 }
 
 @if (Model.FormMode == HomeFormMode.Edit)
 {
     <div id="EditControls">
-        @Html.Partial("EditGame", Model.CurrentGame)
+        @Html.Partial("EditGame", Model.EditGame)
     </div>
 }
 
 @if (Model.FormMode == HomeFormMode.Select)
 {
     <div id="LoadControls">
-        @Html.Partial("SelectGame", Model.LoadModel)
+        @Html.Partial("SelectGame", Model.SelectGame)
     </div>
 }

@@ -10,7 +10,7 @@ namespace ChessViewer.Services.Abstract
 {
     public interface IGameService
     {
-        GameModel GetGameByName(string gameName);
+        GameModel GetGameByName(string gameName, bool loadMoves);
         List<GameModel> GetAllGames();
         void SaveGame(string gameName, string rawMoves);
     }

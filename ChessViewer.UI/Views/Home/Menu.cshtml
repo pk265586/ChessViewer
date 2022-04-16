@@ -5,17 +5,18 @@
 
 <ul>
     <li>
+
         @if (Model.FormMode == HomeFormMode.Edit)
         {
-            Html.ActionLink("Play", "PlayRaw", new { rawMoves = Model.EditGame.RawMoves });
+            @Html.ActionLink("Play", "PlayRaw", new { rawMoves = Model.EditGame.RawMoves });
         }
         else
         {
-            Html.ActionLink("Play", "PlaySelected", new { gameName = Model.SelectGame.SelectGameName });
+            @Html.ActionLink("Play", "PlaySelected", new { gameName = Model.SelectGame.SelectGameName });
         }
     </li>
     <li>
-        @Html.ActionLink("Edit", "Edit") 
+        @Html.ActionLink("Edit", "Edit", new { gameName = Model.SelectGame.SelectGameName }) 
     </li>
     <li>
         @Html.ActionLink("Select", "Select")

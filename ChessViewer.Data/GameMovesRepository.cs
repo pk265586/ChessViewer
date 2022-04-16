@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SQLite;
 using System.Linq;
 using System.Text;
@@ -15,11 +16,13 @@ namespace ChessViewer.Data
 
         private SQLiteHelper sqlHelper => new SQLiteHelper(connectionString);
 
-        private static string INSERT_TEXT =
+        private const string INSERT_TEXT =
             "Insert Into GameMoves (GameId, MoveNumber, WhiteFrom, WhiteTo, BlackFrom, BlackTo) " +
             "Values (@GameId, @MoveNumber, @WhiteFrom, @WhiteTo, @BlackFrom, @BlackTo)";
 
-        private static string DELETE_BY_GAME_TEXT = "Delete GameMoves Where GameId = @GameId";
+        private const string DELETE_BY_GAME_TEXT = "Delete GameMoves Where GameId = @GameId";
+
+        private const string SELECT_BY_GAME_TEXT = "Select * From GameMoves Where GameId = @GameId";
 
         public GameMovesRepository(string connectionString)
         {
@@ -31,14 +34,14 @@ namespace ChessViewer.Data
             sqlHelper.ExecSql(DELETE_BY_GAME_TEXT, new SQLiteParameter("@GameId", gameId));
         }
 
-        public void SaveGameMoves(List<GameMoveModel> moves) 
+        public void SaveGameMoves(long gameId, List<GameMoveModel> moves) 
         {
             foreach (var move in moves) 
             {
                 sqlHelper.ExecSql(INSERT_TEXT, 
                     new[] 
                     { 
-                        new SQLiteParameter("@GameId", move.GameId),
+                        new SQLiteParameter("@GameId", gameId),
                         new SQLiteParameter("@MoveNumber", move.MoveNumber),
                         new SQLiteParameter("@WhiteFrom", move.WhiteFrom),
                         new SQLiteParameter("@WhiteTo", move.WhiteTo),
@@ -46,6 +49,23 @@ namespace ChessViewer.Data
                         new SQLiteParameter("@BlackTo", move.BlackTo)
                     });
             }
+        }
+
+        public List<GameMoveModel> GetGameMoves(long gameId) 
+        {
+            return sqlHelper.GetEntityList(SELECT_BY_GAME_TEXT, new SQLiteParameter("@GameId", gameId), GetGameMoveByReader);
+        }
+
+        private GameMoveModel GetGameMoveByReader(IDataReader reader)
+        {
+            return new GameMoveModel 
+            {
+                MoveNumber = (long)reader["MoveNumber"],
+                WhiteFrom = reader["WhiteFrom"].ToString(),
+                WhiteTo = reader["WhiteTo"].ToString(),
+                BlackFrom = reader["BlackFrom"].ToString(),
+                BlackTo = reader["BlackTo"].ToString()
+            };
         }
     }
 }

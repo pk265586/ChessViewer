@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace ChessViewer.Domain
 {
@@ -7,6 +8,6 @@ namespace ChessViewer.Domain
         public long Id { get; set; }
         public string Name { get; set; }
 
-        //public bool IsNew => Id <= 0;
+        public List<GameMoveModel> Moves { get; set; }
     }
 }
