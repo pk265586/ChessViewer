@@ -10,7 +10,9 @@
         <tr>
         @for (int x = 1; x <= 8; x++)
         {
-            <td width="@cellSize" height="@cellSize" style="background-color: @ChessRender.GetSquareColor(x,y)">  </td>
+            <td id="square-@((char)('a' + x - 1))@y" width="@cellSize" height="@cellSize" style="background-color: @ChessRender.GetSquareColor(x,y)">
+                <!--img src="~/Content/Images/BKing.png" /-->
+            </td>
         }
         </tr>
     }

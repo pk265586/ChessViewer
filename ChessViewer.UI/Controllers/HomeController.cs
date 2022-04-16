@@ -34,7 +34,7 @@ namespace ChessViewer.UI.Controllers
             model.PlayGame = new PlayGameModel
             {
                 GameName = gameName,
-                Moves = game.Moves
+                Moves = game.Moves.ToArray()
             };
 
             return View("Index", model);

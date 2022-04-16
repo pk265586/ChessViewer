@@ -10,6 +10,6 @@ namespace ChessViewer.UI.Models
     public class PlayGameModel
     {
         public string GameName { get; set; }
-        public List<GameMoveModel> Moves { get; set; }
+        public GameMoveModel[] Moves { get; set; }
     }
 }
