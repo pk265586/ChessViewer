@@ -17,16 +17,6 @@ namespace ChessViewer.Data
             this.connectionString = connectionString;
         }
 
-        public void InitDatabase(string initScript) 
-        {
-            var builder = new SQLiteConnectionStringBuilder(connectionString);
-            if (!File.Exists(builder.DataSource))
-            {
-                SQLiteConnection.CreateFile(builder.DataSource);
-                ExecSql(initScript);
-            }
-        }
-
         public T GetEntity<T>(string sqlText, Func<IDataReader, T> mapper)
         {
             return GetEntity(sqlText, parameters: null, mapper: mapper);
@@ -106,22 +96,24 @@ namespace ChessViewer.Data
         public int ExecInsert(string sqlText, SQLiteParameter[] parameters)
         {
             using (var connection = new SQLiteConnection(connectionString))
-            using (var transaction = connection.BeginTransaction())
-            using (var cmd = new SQLiteCommand(sqlText, connection))
             {
-                try
+                connection.Open();
+                using (var transaction = connection.BeginTransaction())
+                using (var cmd = new SQLiteCommand(sqlText, connection))
                 {
-                    connection.Open();
-                    InitCommand(cmd, parameters);
-                    cmd.ExecuteNonQuery();
-                    int newId = (int)connection.LastInsertRowId;
-                    transaction.Commit();
-                    return newId;
-                }
-                catch (SQLiteException)
-                {
-                    transaction.Rollback();
-                    throw;
+                    try
+                    {
+                        InitCommand(cmd, parameters);
+                        cmd.ExecuteNonQuery();
+                        int newId = (int)connection.LastInsertRowId;
+                        transaction.Commit();
+                        return newId;
+                    }
+                    catch (SQLiteException)
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
                 }
             }
         }
