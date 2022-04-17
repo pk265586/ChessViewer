@@ -139,6 +139,12 @@ class GameRenderer {
                 cell.html(innerHtml)
             }
         }
+        
+        $("#game-notation").find("*").css("font-weight", "normal");
+        let moveNumberCell = $("#notation-number-" + this.game.currentMoveNumber);
+        let turnNumberCell = $("#notation-" + (this.game.currentTurn === TurnWhite ? "white" : "black") + "-" + + this.game.currentMoveNumber);
+        moveNumberCell.css("font-weight", " bold");
+        turnNumberCell.css("font-weight", " bold");
     }
 }
 
