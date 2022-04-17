@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace ChessViewer.UI.Models
 {
@@ -9,6 +6,5 @@ namespace ChessViewer.UI.Models
     {
         public string RawMoves { get; set; }
         public string NewGameName { get; set; }
-        //public int OverwriteGameId { get; set; }
     }
 }

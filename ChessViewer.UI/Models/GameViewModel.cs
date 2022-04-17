@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
 namespace ChessViewer.UI.Models
 {
@@ -13,7 +10,5 @@ namespace ChessViewer.UI.Models
 
         [Required]
         public string GameName { get; set; }
-
-        //public List<GameMoveViewModel> Moves { get; set; }
     }
 }

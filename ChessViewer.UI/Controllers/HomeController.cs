@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 using ChessViewer.Domain;
@@ -25,7 +23,7 @@ namespace ChessViewer.UI.Controllers
             return Select();
         }
 
-        public ActionResult PlaySelected(string gameName)
+        private ActionResult PlaySelected(string gameName)
         {
             var game = gameService.GetGameByName(gameName, loadMoves: true);
             if (game == null)
@@ -46,7 +44,7 @@ namespace ChessViewer.UI.Controllers
             return View("Index", model);
         }
 
-        public ActionResult PlayRaw(string gameName, string rawMoves)
+        private ActionResult PlayRaw(string gameName, string rawMoves)
         {
             var game = new GameModel 
             {
@@ -57,7 +55,7 @@ namespace ChessViewer.UI.Controllers
             return PlayGame(game);
         }
 
-        public ActionResult Edit(string gameName = null)
+        private ActionResult Edit(string gameName = null)
         {
             var model = new HomeViewModel(HomeFormMode.Edit);
             if (gameName != null) 

@@ -180,7 +180,6 @@
     </Compile>
     <Compile Include="Models\EditGameModel.cs" />
     <Compile Include="Models\GameModelMapper.cs" />
-    <Compile Include="Models\GameMoveViewModel.cs" />
     <Compile Include="Models\GameViewModel.cs" />
     <Compile Include="Models\HomeViewModel.cs" />
     <Compile Include="Models\PlayGameModel.cs" />
@@ -194,7 +193,6 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.6.0.slim.min.map" />
     <Content Include="Scripts\jquery-3.6.0.min.map" />
-    <Content Include="Views\Home\Menu.cshtml" />
     <Content Include="Views\Home\ControlsRoot.cshtml" />
     <Content Include="Views\Home\EditGame.cshtml" />
     <Content Include="Views\Home\SelectGame.cshtml" />

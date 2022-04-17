@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using ChessViewer.Domain;
 using ChessViewer.Data;
@@ -15,9 +13,6 @@ namespace ChessViewer.Services.Implementation
     {
         private GameRepository GetGameRepository() =>
             new GameRepository(AppSettings.ConnectionString);
-
-        /*private GameMovesRepository GetGameMovesRepository() =>
-            new GameMovesRepository(AppSettings.ConnectionString);*/
 
         public void SaveGame(string gameName, string rawMoves) 
         {

@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Text;
 
 using ChessViewer.Domain;
@@ -15,9 +13,8 @@ namespace ChessViewer.UI.Models
             var viewModel = new GameViewModel 
             {
                 GameName = domainModel.Name,
-                //Moves = domainModel.Moves
+                RawMoves = GetRawMoves(domainModel.Moves)
             };
-            viewModel.RawMoves = GetRawMoves(domainModel.Moves);
 
             return viewModel;
         }

@@ -1,9 +1,7 @@
 ﻿using System;
-using System.IO;
 using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Data;
-using System.Data.Common;
 using System.Linq;
 
 namespace ChessViewer.Data
