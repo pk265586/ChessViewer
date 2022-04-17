@@ -25,18 +25,23 @@
             </div>
         }
 
+        @helper HorizontalBorder(int borderSize, int cellSize)
+        {
+            <tr>
+                <td width="@borderSize" height="@borderSize" class="chessboard-border"></td>
+                @for (int x = 1; x <= 8; x++)
+                {
+                    <td width="@cellSize" height="@borderSize" class="chessboard-border">
+                        @((char)('A' + x - 1))
+                    </td>
+                }
+                <td width="@borderSize" height="@borderSize" class="chessboard-border"></td>
+            </tr>
+        }
+
         <div style="width: auto ">
             <table>
-                <tr>
-                    <td width="@borderSize" height="@borderSize" class="chessboard-border"></td>
-                    @for (int x = 1; x <= 8; x++)
-                    {
-                        <td width="@cellSize" height="@borderSize" class="chessboard-border">
-                            @((char)('A' + x - 1))
-                        </td>
-                    }
-                    <td width="@borderSize" height="@borderSize" class="chessboard-border"></td>
-                </tr>
+                @HorizontalBorder(borderSize, cellSize)
 
                 @for (int y = 8; y >= 1; y--)
                 {
@@ -50,16 +55,7 @@
                     </tr>
                 }
 
-                <tr>
-                    <td width="@borderSize" height="@borderSize" class="chessboard-border"></td>
-                    @for (int x = 1; x <= 8; x++)
-                    {
-                        <td width="@cellSize" height="@borderSize" class="chessboard-border">
-                            @((char)('A' + x - 1))
-                        </td>
-                    }
-                    <td width="@borderSize" height="@borderSize" class="chessboard-border"></td>
-                </tr>
+                @HorizontalBorder(borderSize, cellSize)
 
             </table>
         </div>

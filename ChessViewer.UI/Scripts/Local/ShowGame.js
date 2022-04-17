@@ -227,8 +227,6 @@ class PlayGameEvents {
     }
 }
 
-//var events;
-
 function doShowGame(moves) {
     let game = new ChessGame(moves);
     let renderer = new GameRenderer(game);
