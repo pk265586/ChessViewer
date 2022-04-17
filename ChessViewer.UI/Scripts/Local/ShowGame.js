@@ -78,11 +78,35 @@ class ChessGame {
         if (!moveSquares.from || !moveSquares.to)
             return;
 
+        this.moveOnePiece(moveSquares);
+
+        this.checkCastlingRule(moveSquares);
+
+        this.nextMove();
+    }
+
+    moveOnePiece(moveSquares) {
         let movingPiece = this.position[moveSquares.from.y][moveSquares.from.x];
         this.position[moveSquares.from.y][moveSquares.from.x] = 0;
         this.position[moveSquares.to.y][moveSquares.to.x] = movingPiece;
+    }
 
-        this.nextMove();
+    checkCastlingRule(moveSquares) {
+        let movingPiece = this.position[moveSquares.to.y][moveSquares.to.x];
+        if (movingPiece !== Wking && movingPiece !== Bking)
+            return;
+
+        let delta = moveSquares.to.x - moveSquares.from.x;
+        if (Math.abs(delta) > 1) {
+            let rookFromX = delta < 0 ? 0 : 7;
+            let rookToX = delta < 0 ? 3 : 5;
+
+            let rookMove = {
+                from: { x: rookFromX, y: moveSquares.from.y },
+                to: { x: rookToX, y: moveSquares.from.y }
+            };
+            this.moveOnePiece(rookMove);
+        }
     }
 
     nextMove() {
