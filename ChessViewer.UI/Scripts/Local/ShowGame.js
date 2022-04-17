@@ -224,12 +224,23 @@ class GameRenderer {
                 }
             }
         }
-        
-        $("#game-notation").find("td").css("font-weight", "normal");
+
+        var notationRoot = $("#game-notation");
+        notationRoot.find("td").css("font-weight", "normal");
         let moveNumberCell = $("#notation-number-" + this.game.currentMoveNumber);
         let turnNumberCell = $("#notation-" + (this.game.currentTurn === TurnWhite ? "white" : "black") + "-" + + this.game.currentMoveNumber);
         moveNumberCell.css("font-weight", " bold");
         turnNumberCell.css("font-weight", " bold");
+        if (moveNumberCell.length > 0) {
+            let rectContainer = notationRoot[0].getBoundingClientRect();
+            let rectElem = moveNumberCell[0].getBoundingClientRect();
+            if (rectElem.bottom > rectContainer.bottom) {
+                moveNumberCell[0].scrollIntoView(false);
+            }
+            else if (rectElem.top < rectContainer.top) {
+                moveNumberCell[0].scrollIntoView();
+            }
+        }
     }
 }
 

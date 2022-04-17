@@ -7,12 +7,19 @@
     const int borderSize = 20;
 }
 
+@if (!string.IsNullOrEmpty(@Model.GameName))
+{
+    <div>
+        <label> Game name: @Model.GameName </label>
+    </div>
+}
+
 <div class="container-fluid">
     <div class="row panel">
         @if (Model != null && Model.Moves != null && Model.Moves.Length > 0)
         {
-            <div style="overflow-y: scroll; border: 1px solid black; min-width: 200px; width: auto">
-                <table id="game-notation">
+            <div id="game-notation" style="overflow-y: scroll; border: 1px solid black; min-width: 200px; width: auto; height: 500px">
+                <table>
                     @foreach (var move in Model.Moves)
                     {
                         <tr>
