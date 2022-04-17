@@ -78,9 +78,9 @@ class ChessGame {
         if (!moveSquares.from || !moveSquares.to)
             return;
 
-        this.moveOnePiece(moveSquares);
-
         this.checkCastlingRule(moveSquares);
+        this.checkEnPassantRule(moveSquares);
+        this.moveOnePiece(moveSquares);
 
         this.nextMove();
     }
@@ -92,7 +92,7 @@ class ChessGame {
     }
 
     checkCastlingRule(moveSquares) {
-        let movingPiece = this.position[moveSquares.to.y][moveSquares.to.x];
+        let movingPiece = this.position[moveSquares.from.y][moveSquares.from.x];
         if (movingPiece !== Wking && movingPiece !== Bking)
             return;
 
@@ -106,6 +106,24 @@ class ChessGame {
                 to: { x: rookToX, y: moveSquares.from.y }
             };
             this.moveOnePiece(rookMove);
+        }
+    }
+
+    checkEnPassantRule(moveSquares) {
+        let movingPiece = this.position[moveSquares.from.y][moveSquares.from.x];
+        if (movingPiece !== Wpawn && movingPiece !== Bpawn)
+            return;
+
+        let delta = moveSquares.to.x - moveSquares.from.x;
+        if (delta === 0) // i.e. move is not capture
+            return;
+
+        // find target piece; if it's empty, then apply en passant rule
+        let targetPiece = this.position[moveSquares.to.y][moveSquares.to.x];
+        if (targetPiece === 0) {
+            let capturedY = moveSquares.from.y;
+            let capturedX = moveSquares.to.x;
+            this.position[capturedY][capturedX] = 0;
         }
     }
 
