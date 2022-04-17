@@ -13,6 +13,16 @@ const Bbishop = 10;
 const Bknight = 11;
 const Bpawn = 12;
 
+// convert 0-base integer to board lowercase char
+function intToBoardXChar(xBase0) {
+    return String.fromCharCode('a'.charCodeAt(0) + xBase0);
+}
+
+// convert board char to 0-base integer
+function boardXCharToInt(xChar) {
+    return xChar.toLowerCase().charCodeAt(0) - 'a'.charCodeAt(0);
+}
+
 class ChessGame {
     constructor(moves) {
         this.moves = moves;
@@ -29,21 +39,75 @@ class ChessGame {
             [Brook, Bknight, Bbishop, Bqueen, Bking, Bbishop, Bknight, Brook],
         ];
     }
+
+    makeMove() {
+        if (this.currentMoveNumber <= 0 || this.currentMoveNumber > this.moves.length)
+            return;
+
+        let currentMove = this.moves[this.currentMoveNumber - 1];
+        let moveSquares = this.extractMoveSquares(currentMove, this.currentTurn);
+        this.makeMoveCore(moveSquares);
+    }
+
+    makeMoveCore(moveSquares) {
+        if (!moveSquares.from || !moveSquares.to)
+            return;
+
+        let movingPiece = this.position[moveSquares.from.y][moveSquares.from.x];
+        this.position[moveSquares.from.y][moveSquares.from.x] = 0;
+        this.position[moveSquares.to.y][moveSquares.to.x] = movingPiece;
+
+        this.currentTurn = (TurnWhite + TurnBlack) - this.currentTurn;
+        if (this.currentTurn === TurnWhite) {
+            this.currentMoveNumber++;
+        }
+    }
+
+    extractMoveSquares(move, turn) {
+        let rawSquares = this.extractRawMoveSquares(move, turn);
+
+        return {
+            from: this.extractXY(rawSquares.from),
+            to: this.extractXY(rawSquares.to)
+        };
+    }
+
+    extractRawMoveSquares(move, turn) {
+        if (turn === TurnWhite) {
+            return {
+                from: move.WhiteFrom,
+                to: move.WhiteTo
+            };
+        }
+
+        return {
+            from: move.BlackFrom,
+            to: move.BlackTo
+        };
+    }
+
+    extractXY(rawSquare) {
+        if (!rawSquare || rawSquare.length < 2)
+            return null;
+
+        return {
+            x: boardXCharToInt(rawSquare[rawSquare.length - 2]),
+            y: parseInt(rawSquare[rawSquare.length - 1]) - 1
+        };
+    }
 }
 
-
-class GameRenderer
-{
+class GameRenderer {
     constructor(game) {
         this.game = game;
     }
 
     getCellId(x, y) {
-        let x_letter = String.fromCharCode('a'.charCodeAt(0) + x - 1);
+        let x_letter = intToBoardXChar(x - 1);
         return "square-" + x_letter + y;
     }
 
-    getImageName(piece) { 
+    getImageName(piece) {
         switch (piece) {
             case Wking: return "WKing.png";
             case Wqueen: return "Wqueen.png";
@@ -60,7 +124,7 @@ class GameRenderer
         }
     }
 
-    getInnerHtml(piece) { 
+    getInnerHtml(piece) {
         if (piece == 0)
             return "";
         return "<img align='center' width='100%' height='100%' src='/Content/Images/" + this.getImageName(piece) + "' />";
@@ -78,8 +142,39 @@ class GameRenderer
     }
 }
 
+class PlayGameEvents {
+    constructor(renderer) {
+        this.renderer = renderer;
+    }
+
+    bindEvents() {
+        $("#btn-play").click(() => this.play());
+        $("#btn-stop").click(() => this.stop());
+        $("#btn-step-forward").click(() => this.stepForward());
+        $("#btn-step-backward").click(() => this.stepBackward());
+    }
+
+    play() {
+    }
+
+    stop() {
+    }
+
+    stepForward() {
+        this.renderer.game.makeMove();
+        this.renderer.renderPosition();
+    }
+
+    stepBackward() {
+    }
+}
+
+//var events;
+
 function doShowGame(moves) {
     let game = new ChessGame(moves);
     let renderer = new GameRenderer(game);
     renderer.renderPosition();
+    let events = new PlayGameEvents(renderer);
+    events.bindEvents();
 }

@@ -128,6 +128,7 @@
     <Content Include="Content\Images\WPawn.png" />
     <Content Include="Content\Images\WQueen.png" />
     <Content Include="Content\Images\WRook.png" />
+    <Content Include="Content\Styles\ChessboardStyles.css" />
     <Content Include="Content\Styles\ErrorStyles.css" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.bundle.js" />

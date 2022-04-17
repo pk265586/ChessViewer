@@ -2,18 +2,42 @@
 
 @{
     const int cellSize = 50;
+    const int borderSize = 20;
 }
 
-<table width="auto">
+<table>
+    <tr>
+        <td width="@borderSize" height="@borderSize" class="chessboard-border"></td>
+        @for (int x = 1; x <= 8; x++)
+        {
+            <td width="@cellSize" height="@borderSize" class="chessboard-border">
+                @((char)('A' + x - 1))
+            </td>
+        }
+        <td width="@borderSize" height="@borderSize" class="chessboard-border"></td>
+    </tr>
+
     @for (int y = 8; y >= 1; y--)
     {
         <tr>
-        @for (int x = 1; x <= 8; x++)
-        {
-            <td id="square-@((char)('a' + x - 1))@y" width="@cellSize" height="@cellSize" style="background-color: @ChessRender.GetSquareColor(x,y)">
-                <!--img src="~/Content/Images/BKing.png" /-->
-            </td>
-        }
+            <td width="@borderSize" height="@cellSize" class="chessboard-border"> @y </td>
+            @for (int x = 1; x <= 8; x++)
+            {
+                <td id="square-@((char)('a' + x - 1))@y" width="@cellSize" height="@cellSize" style="background-color: @ChessRender.GetSquareColor(x,y)"> </td>
+            }
+            <td width="@borderSize" height="@cellSize" class="chessboard-border"> @y </td>
         </tr>
     }
+
+    <tr>
+        <td width="@borderSize" height="@borderSize" class="chessboard-border"></td>
+        @for (int x = 1; x <= 8; x++)
+        {
+            <td width="@cellSize" height="@borderSize" class="chessboard-border">
+                @((char)('A' + x - 1))
+            </td>
+        }
+        <td width="@borderSize" height="@borderSize" class="chessboard-border"></td>
+    </tr>
+
 </table>
