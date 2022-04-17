@@ -1,43 +1,69 @@
 ﻿@using ChessViewer.UI.Static
+@using ChessViewer.UI.Models
+@model PlayGameModel
 
 @{
     const int cellSize = 50;
     const int borderSize = 20;
 }
 
-<table>
-    <tr>
-        <td width="@borderSize" height="@borderSize" class="chessboard-border"></td>
-        @for (int x = 1; x <= 8; x++)
-        {
-            <td width="@cellSize" height="@borderSize" class="chessboard-border">
-                @((char)('A' + x - 1))
-            </td>
-        }
-        <td width="@borderSize" height="@borderSize" class="chessboard-border"></td>
-    </tr>
-
-    @for (int y = 8; y >= 1; y--)
-    {
-        <tr>
-            <td width="@borderSize" height="@cellSize" class="chessboard-border"> @y </td>
-            @for (int x = 1; x <= 8; x++)
+<div class="container-fluid">
+    <div class="row panel">
+        <div style="overflow-y: scroll; border: 1px solid black; min-width: 100px; width: auto">
+            @if (Model != null && Model.Moves != null && Model.Moves.Length > 0)
             {
-                <td id="square-@((char)('a' + x - 1))@y" width="@cellSize" height="@cellSize" style="background-color: @ChessRender.GetSquareColor(x,y)"> </td>
+                <table>
+                    @foreach (var move in Model.Moves)
+                    {
+                        <tr>
+                            <td> @move.MoveNumber </td>
+                            <td> @move.WhiteFrom - @move.WhiteTo </td>
+                            <td> @move.BlackFrom - @move.BlackTo </td>
+                        </tr>
+                    }
+                </table>
             }
-            <td width="@borderSize" height="@cellSize" class="chessboard-border"> @y </td>
-        </tr>
-    }
+        </div>
 
-    <tr>
-        <td width="@borderSize" height="@borderSize" class="chessboard-border"></td>
-        @for (int x = 1; x <= 8; x++)
-        {
-            <td width="@cellSize" height="@borderSize" class="chessboard-border">
-                @((char)('A' + x - 1))
-            </td>
-        }
-        <td width="@borderSize" height="@borderSize" class="chessboard-border"></td>
-    </tr>
+        <div style="width: auto ">
+            <table>
+                <tr>
+                    <td width="@borderSize" height="@borderSize" class="chessboard-border"></td>
+                    @for (int x = 1; x <= 8; x++)
+                    {
+                        <td width="@cellSize" height="@borderSize" class="chessboard-border">
+                            @((char)('A' + x - 1))
+                        </td>
+                    }
+                    <td width="@borderSize" height="@borderSize" class="chessboard-border"></td>
+                </tr>
 
-</table>
+                @for (int y = 8; y >= 1; y--)
+                {
+                    <tr>
+                        <td width="@borderSize" height="@cellSize" class="chessboard-border"> @y </td>
+                        @for (int x = 1; x <= 8; x++)
+                        {
+                            <td id="square-@((char)('a' + x - 1))@y" width="@cellSize" height="@cellSize" style="background-color: @ChessRender.GetSquareColor(x,y)"> </td>
+                        }
+                        <td width="@borderSize" height="@cellSize" class="chessboard-border"> @y </td>
+                    </tr>
+                }
+
+                <tr>
+                    <td width="@borderSize" height="@borderSize" class="chessboard-border"></td>
+                    @for (int x = 1; x <= 8; x++)
+                    {
+                        <td width="@cellSize" height="@borderSize" class="chessboard-border">
+                            @((char)('A' + x - 1))
+                        </td>
+                    }
+                    <td width="@borderSize" height="@borderSize" class="chessboard-border"></td>
+                </tr>
+
+            </table>
+        </div>
+
+    </div>
+</div>
+
