@@ -49,7 +49,7 @@ class ChessGame {
     }
 
     makeMove() {
-        if (!this.isValidMoveNumber(this.currentMoveNumber))
+        if (!this.isValidCurrentMoveNumber())
             return;
 
         let currentMoveText = this.moves[this.currentMoveNumber - 1];
@@ -88,10 +88,12 @@ class ChessGame {
     nextMove() {
         let nextTurn = this.getNextTurn();
         let nextMoveNumber = nextTurn === TurnWhite ? this.currentMoveNumber + 1 : this.currentMoveNumber;
-        //if (this.isValidMoveNumber(nextMoveNumber)) {
         this.currentTurn = nextTurn;
         this.currentMoveNumber = nextMoveNumber;
-        //}
+    }
+
+    isValidCurrentMoveNumber() {
+        return this.isValidMoveNumber(this.currentMoveNumber);
     }
 
     isValidMoveNumber(moveNumber) {
@@ -200,14 +202,23 @@ class PlayGameEvents {
     }
 
     play() {
+        this.stepForward();
+        this.playTimer = setInterval(() => this.stepForward(), 1000);
     }
 
     stop() {
+        if (this.playTimer) {
+            clearInterval(this.playTimer);
+            delete this.playTimer;
+        }
     }
 
     stepForward() {
         this.renderer.game.makeMove();
         this.renderer.renderPosition();
+        if (this.playTimer && !this.renderer.game.isValidCurrentMoveNumber()) {
+            this.stop()
+        }
     }
 
     stepBackward() {
