@@ -225,7 +225,7 @@ class GameRenderer {
             }
         }
         
-        $("#game-notation").find("*").css("font-weight", "normal");
+        $("#game-notation").find("td").css("font-weight", "normal");
         let moveNumberCell = $("#notation-number-" + this.game.currentMoveNumber);
         let turnNumberCell = $("#notation-" + (this.game.currentTurn === TurnWhite ? "white" : "black") + "-" + + this.game.currentMoveNumber);
         moveNumberCell.css("font-weight", " bold");
@@ -243,6 +243,15 @@ class PlayGameEvents {
         $("#btn-stop").click(() => this.stop());
         $("#btn-step-forward").click(() => this.stepForward());
         $("#btn-step-backward").click(() => this.stepBackward());
+
+        $("#game-notation").find("td").click(event => {
+            let id = event.target.id.replace("notation-number", "notation-white");
+            let moveNumber = parseInt(id.match(/\d+/));
+            let turn = id.startsWith("notation-white") ? TurnWhite : TurnBlack;
+            this.renderer.game.setMove(moveNumber, turn);
+            this.renderer.renderPosition();
+            event.stopPropagation();
+        });
     }
 
     play() {
