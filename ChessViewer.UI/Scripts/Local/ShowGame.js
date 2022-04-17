@@ -23,30 +23,55 @@ function boardXCharToInt(xChar) {
     return xChar.toLowerCase().charCodeAt(0) - 'a'.charCodeAt(0);
 }
 
+function getStartPosition() {
+    return [
+        [Wrook, Wknight, Wbishop, Wqueen, Wking, Wbishop, Wknight, Wrook],
+        [Wpawn, Wpawn, Wpawn, Wpawn, Wpawn, Wpawn, Wpawn, Wpawn],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [Bpawn, Bpawn, Bpawn, Bpawn, Bpawn, Bpawn, Bpawn, Bpawn],
+        [Brook, Bknight, Bbishop, Bqueen, Bking, Bbishop, Bknight, Brook],
+    ];
+}
+
 class ChessGame {
     constructor(moves) {
         this.moves = moves;
+        this.initGameStart();
+    }
+
+    initGameStart() {
         this.currentMoveNumber = 1;
         this.currentTurn = TurnWhite;
-        this.position = [
-            [Wrook, Wknight, Wbishop, Wqueen, Wking, Wbishop, Wknight, Wrook],
-            [Wpawn, Wpawn, Wpawn, Wpawn, Wpawn, Wpawn, Wpawn, Wpawn],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [Bpawn, Bpawn, Bpawn, Bpawn, Bpawn, Bpawn, Bpawn, Bpawn],
-            [Brook, Bknight, Bbishop, Bqueen, Bking, Bbishop, Bknight, Brook],
-        ];
+        this.position = getStartPosition();
     }
 
     makeMove() {
-        if (this.currentMoveNumber <= 0 || this.currentMoveNumber > this.moves.length)
+        if (!this.isValidMoveNumber(this.currentMoveNumber))
             return;
 
-        let currentMove = this.moves[this.currentMoveNumber - 1];
-        let moveSquares = this.extractMoveSquares(currentMove, this.currentTurn);
+        let currentMoveText = this.moves[this.currentMoveNumber - 1];
+        let moveSquares = this.extractMoveSquares(currentMoveText, this.currentTurn);
         this.makeMoveCore(moveSquares);
+    }
+
+    backMove() {
+        let newTurn = this.getNextTurn();
+        let newMoveNumber = newTurn === TurnBlack ? this.currentMoveNumber - 1 : this.currentMoveNumber;
+        if (this.isValidMoveNumber(newMoveNumber)) {
+            this.setMove(newMoveNumber, newTurn);
+        }
+    }
+
+    setMove(number, turn) {
+        this.initGameStart();
+        let safetyCounter = 0;
+        while (safetyCounter <= this.moves.length * 2 && !(this.currentMoveNumber === number && this.currentTurn === turn)) {
+            this.makeMove();
+            safetyCounter++;
+        }
     }
 
     makeMoveCore(moveSquares) {
@@ -57,10 +82,24 @@ class ChessGame {
         this.position[moveSquares.from.y][moveSquares.from.x] = 0;
         this.position[moveSquares.to.y][moveSquares.to.x] = movingPiece;
 
-        this.currentTurn = (TurnWhite + TurnBlack) - this.currentTurn;
-        if (this.currentTurn === TurnWhite) {
-            this.currentMoveNumber++;
+        this.nextMove();
+    }
+
+    nextMove() {
+        let nextTurn = this.getNextTurn();
+        let nextMoveNumber = nextTurn === TurnWhite ? this.currentMoveNumber + 1 : this.currentMoveNumber;
+        if (this.isValidMoveNumber(nextMoveNumber)) {
+            this.currentTurn = nextTurn;
+            this.currentMoveNumber = nextMoveNumber;
         }
+    }
+
+    isValidMoveNumber(moveNumber) {
+        return moveNumber > 0 && moveNumber <= this.moves.length;
+    }
+
+    getNextTurn() {
+        return (TurnWhite + TurnBlack) - this.currentTurn;
     }
 
     extractMoveSquares(move, turn) {
@@ -172,6 +211,8 @@ class PlayGameEvents {
     }
 
     stepBackward() {
+        this.renderer.game.backMove();
+        this.renderer.renderPosition();
     }
 }
 
