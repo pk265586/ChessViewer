@@ -14,7 +14,14 @@ namespace ChessViewer.Domain
 
         public override string ToString()
         {
-            return $"{MoveNumber}. {WhiteFrom}-{WhiteTo} {BlackFrom}-{BlackTo}";
+            return $"{MoveNumber}. {GetMoveNotation(WhiteFrom, WhiteTo)} {GetMoveNotation(BlackFrom, BlackTo)}";
+        }
+
+        public string GetMoveNotation(string from, string to) 
+        {
+            if (string.IsNullOrEmpty(from) || string.IsNullOrEmpty(to))
+                return "";
+            return $"{from}-{to}";
         }
     }
 }

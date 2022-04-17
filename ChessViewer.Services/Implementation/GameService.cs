@@ -72,8 +72,8 @@ namespace ChessViewer.Services.Implementation
                 MoveNumber = moveNumber,
                 WhiteFrom = cellArray[0][0],
                 WhiteTo = cellArray[0][1],
-                BlackFrom = cellArray.LastOrDefault()?.FirstOrDefault(),
-                BlackTo = cellArray.LastOrDefault()?.LastOrDefault(),
+                BlackFrom = cellArray.ElementAtOrDefault(1)?.FirstOrDefault(),
+                BlackTo = cellArray.ElementAtOrDefault(1)?.LastOrDefault(),
             };
 
             return model;

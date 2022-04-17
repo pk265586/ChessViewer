@@ -24,8 +24,8 @@
                     {
                         <tr>
                             <td id="notation-number-@move.MoveNumber" style="font-weight: bold"> @move.MoveNumber </td>
-                            <td id="notation-white-@move.MoveNumber"> @move.WhiteFrom - @move.WhiteTo </td>
-                            <td id="notation-black-@move.MoveNumber"> @move.BlackFrom - @move.BlackTo </td>
+                            <td id="notation-white-@move.MoveNumber"> @move.GetMoveNotation(move.WhiteFrom, move.WhiteTo) </td>
+                            <td id="notation-black-@move.MoveNumber"> @move.GetMoveNotation(move.BlackFrom, move.BlackTo) </td>
                         </tr>
                     }
                 </table>
