@@ -15,11 +15,15 @@
             @Html.TextAreaFor(m => m.RawMoves, new { @class = "form-control", rows = "15", cols = "15", spellcheck = "false", style = "font-family: 'Courier New'" })
         </div>
 
-        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="submit" name="Save" value="Save" class="btn btn-primary">Save</button>
 
         <br />
         <br />
 
+        <button type="submit" name="Play" value="Play" class="btn btn-secondary">Play without saving</button>
+
+        <br />
+        <br />
         @Html.ActionLink("Return to game selection", "Select", new { selectedName = Model.GameName }, new { @class = "btn btn-link" })
     }
 </div>

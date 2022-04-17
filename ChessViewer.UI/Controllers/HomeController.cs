@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+using ChessViewer.Domain;
 using ChessViewer.UI.Models;
 using ChessViewer.UI.Static;
 using ChessViewer.Services.Abstract;
@@ -30,22 +31,31 @@ namespace ChessViewer.UI.Controllers
             if (game == null)
                 return Select();
 
+            return PlayGame(game);
+        }
+
+        private ActionResult PlayGame(GameModel game)
+        {
             var model = new HomeViewModel(HomeFormMode.Play);
             model.PlayGame = new PlayGameModel
             {
-                GameName = gameName,
+                GameName = game.Name,
                 Moves = game.Moves.ToArray()
             };
 
             return View("Index", model);
         }
 
-        /*public ActionResult PlayRaw(string rawMoves)
+        public ActionResult PlayRaw(string gameName, string rawMoves)
         {
-            var model = new HomeViewModel(HomeFormMode.Play);
-            model.EditGame.RawMoves = rawMoves;
-            return View("Index", model);
-        }*/
+            var game = new GameModel 
+            {
+                Name = gameName,
+                Moves = gameService.ConvertToMovesList(rawMoves)
+            };
+
+            return PlayGame(game);
+        }
 
         public ActionResult Edit(string gameName = null)
         {
@@ -69,6 +79,10 @@ namespace ChessViewer.UI.Controllers
             {
                 return View("Index", new HomeViewModel(HomeFormMode.Edit) { EditGame = saveModel });
             }
+
+            bool isPlay = Request.Form["Play"] != null;
+            if (isPlay)
+                return PlayRaw(saveModel.GameName, saveModel.RawMoves);
 
             gameService.SaveGame(saveModel.GameName, saveModel.RawMoves);
             return Select();

@@ -13,5 +13,6 @@ namespace ChessViewer.Services.Abstract
         GameModel GetGameByName(string gameName, bool loadMoves);
         List<GameModel> GetAllGames();
         void SaveGame(string gameName, string rawMoves);
+        List<GameMoveModel> ConvertToMovesList(string rawMoves);
     }
 }
