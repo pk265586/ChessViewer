@@ -168,7 +168,7 @@ class GameRenderer {
     getInnerHtml(piece) {
         if (piece == 0)
             return "";
-        return "<img align='center' width='100%' height='100%' src='/Content/Images/" + this.getImageName(piece) + "' />";
+        return '<img align="center" width="100%" height="100%" src="/Content/Images/' + this.getImageName(piece) + '">';
     }
 
     renderPosition() {
@@ -177,7 +177,9 @@ class GameRenderer {
                 let cellId = this.getCellId(x, y);
                 let cell = $("#" + cellId);
                 let innerHtml = this.getInnerHtml(this.game.position[y - 1][x - 1]);
-                cell.html(innerHtml)
+                if (innerHtml !== cell.html()) {
+                    cell.html(innerHtml);
+                }
             }
         }
         
