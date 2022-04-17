@@ -88,10 +88,10 @@ class ChessGame {
     nextMove() {
         let nextTurn = this.getNextTurn();
         let nextMoveNumber = nextTurn === TurnWhite ? this.currentMoveNumber + 1 : this.currentMoveNumber;
-        if (this.isValidMoveNumber(nextMoveNumber)) {
-            this.currentTurn = nextTurn;
-            this.currentMoveNumber = nextMoveNumber;
-        }
+        //if (this.isValidMoveNumber(nextMoveNumber)) {
+        this.currentTurn = nextTurn;
+        this.currentMoveNumber = nextMoveNumber;
+        //}
     }
 
     isValidMoveNumber(moveNumber) {
